@@ -1,5 +1,5 @@
 {
-  "name": "react-graphql-movies-server",
+  "name": "movieland-express-graphql",
   "version": "0.1.0",
   "description": "An Express server that provides the GraphQL endpoints and web page payloads for the React movie apps.",
   "main": "index.js",
