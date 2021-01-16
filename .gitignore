@@ -66,5 +66,8 @@ typings/
 
 # App
 web
+lib/
 package-lock.json
+yarn.lock
 *.http
+*.env.json

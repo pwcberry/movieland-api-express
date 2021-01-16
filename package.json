@@ -2,11 +2,15 @@
   "name": "movieland-express-graphql",
   "version": "0.1.0",
   "description": "An Express server that provides the GraphQL endpoints and web page payloads for the React movie apps.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "lint": "npx eslint . --ext js",
-    "lint:fix": "npx eslint . --ext js --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run clean && npx tsc",
+    "check": "npm run lint:fix && npm test",
+    "clean": "rimraf lib",
+    "lint": "eslint --ext ts src/ test/",
+    "lint:fix": "eslint --fix --ext ts src/ test/",
+    "start": "node lib/server.js",
+    "test": "jest"
   },
   "author": "Peter Berry <nerd@travelsincode.com>",
   "license": "MIT",
@@ -16,8 +20,27 @@
   },
   "dependencies": {
     "apollo-server-express": "^2.9.7",
+    "dotenv": "^8.2.0",
     "eslint": "^7.4.0",
     "express": "^4.17.1",
-    "node-fetch": "^2.6.0"
+    "graphql": "^15.4.0",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.20",
+    "@types/node-fetch": "^2.5.7",
+    "@typescript-eslint/eslint-plugin": "^4.9.1",
+    "@typescript-eslint/parser": "^4.9.1",
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.1.3"
   }
 }

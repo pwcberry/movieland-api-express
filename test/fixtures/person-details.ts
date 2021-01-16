@@ -1,0 +1,15 @@
+export default {
+    also_known_as: ["카렌 길런", "Κάρεν Γκίλαν"],
+    biography: "Karen Gillan (born 28 November 1987) is a Scottish actress, director, and screenwriter from Inverness, Scotland.",
+    birthday: "1987-11-28",
+    deathday: null,
+    gender: 1,
+    homepage: "http://karen-gillan.com/karen-gillan/",
+    id: 543261,
+    imdb_id: "nm2394794",
+    known_for_department: "Acting",
+    name: "Karen Gillan",
+    place_of_birth: "Inverness, Scotland, UK",
+    popularity: 11.41,
+    profile_path: "/rWx8u4F4aYIqmjJDeMK78ysPsu0.jpg",
+};

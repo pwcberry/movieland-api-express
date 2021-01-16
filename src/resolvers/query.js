@@ -1,19 +1,19 @@
 const querystring = require("querystring");
 const fetch = require("node-fetch");
+const { MovieService } = require("movieland-node-api");
 const { transformMovie, transformSearchResults } = require("../transformers");
 
 const apiUrl = process.env.API_URL;
 const apiKey = process.env.API_KEY;
 
+const service = new MovieService(apiUrl, apiKey);
+
 module.exports = {
     async movie(_, { id }) {
-        const movieResponse = await fetch(`${apiUrl}/movie/${id}?api_key=${apiKey}`);
-        const movieData = await movieResponse.json();
+        const movieData = await service.getMovieDetails(id);
+        const movieCreditsData = await service.getMovieCredits(id);
 
-        const movieCreditsResponse = await fetch(`${apiUrl}/movie/${id}/credits?api_key=${apiKey}`);
-        const movieCreditData = await movieCreditsResponse.json();
-
-        return transformMovie(movieData, movieCreditData);
+        return transformMovie(movieData, movieCreditsData);
     },
 
     async search(_, { input: { query, page, year } }) {
