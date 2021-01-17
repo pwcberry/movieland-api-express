@@ -99,3 +99,8 @@ export type PersonDetails = {
     imdb_id: string;
     homepage: NullableString;
 };
+
+export type MovieFullDetailsResult = {
+    movie: MovieDetails;
+    credits: MovieCreditsResult;
+};
