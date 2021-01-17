@@ -5,6 +5,11 @@ export type Genre = {
     name: string;
 };
 
+export interface MovieGenre {
+    genre_ids?: number[];
+    genres?: Genre[];
+}
+
 export type MovieResult = {
     id: number;
     genre_ids: number[];

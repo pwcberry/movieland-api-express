@@ -15,6 +15,7 @@ export default apollo.gql`
       id: ID!
       name: String!
       character: String
+      profileUrl: String
     }
 
     type Movie {
@@ -29,6 +30,8 @@ export default apollo.gql`
       writers: [Credit]
       cast: [Actor]
       runtime: Int
+      rating: Float
+      popularity: Float
     }
 
     type MovieSearchResults {

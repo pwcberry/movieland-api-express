@@ -32,3 +32,18 @@ interface QueryResolvers extends IResolverObject<QueryRoot, ResolverContext> {
 export interface Resolvers extends IResolvers<QueryRoot, ResolverContext> {
     Query: QueryResolvers;
 }
+
+export type Credit = {
+    id: number;
+    department: string;
+    name: string;
+};
+
+export type Actor = {
+    id: number;
+    name: string;
+    originalName: string;
+    character?: string;
+    order?: number;
+    profileUrl: string;
+};

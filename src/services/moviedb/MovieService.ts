@@ -2,6 +2,8 @@ import querystring from "querystring";
 import fetch from "node-fetch";
 import { Genre, MovieCreditsResult, MovieDetails, MovieSearchResult } from "../types";
 
+let genreCache = new Set<Genre>();
+
 class MovieService {
     private readonly apiUrl: string;
     private readonly apiKey: string;
@@ -39,10 +41,17 @@ class MovieService {
     async getGenres(): Promise<Genre[]> {
         const url = `${this.apiUrl}/genre/movie/list?api_key=${this.apiKey}&language=en-US`;
 
-        const queryResponse = await fetch(url);
-        const queryData = await queryResponse.json();
+        if (genreCache.size === 0) {
+            const queryResponse = await fetch(url);
+            const queryData = await queryResponse.json();
 
-        return queryData.genres;
+            if ("genres" in queryData) {
+                genreCache = new Set(queryData.genres);
+                return queryData.genres;
+            }
+        }
+
+        return Promise.resolve(Array.from(genreCache.values()));
     }
 
     /**
