@@ -82,6 +82,8 @@ export type MovieCredit = {
     cast_id?: number;
     character?: string;
     order?: number;
+    job?: string;
+    department?: string;
 };
 
 export type MovieCreditsResult = {

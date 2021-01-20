@@ -4,6 +4,7 @@ export default apollo.gql`
     type Credit {
       id: ID!
       name: String!
+      job: String
     }
 
     type Genre {

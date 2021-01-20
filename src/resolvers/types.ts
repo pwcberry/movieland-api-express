@@ -35,7 +35,7 @@ export interface Resolvers extends IResolvers<QueryRoot, ResolverContext> {
 
 export type Credit = {
     id: number;
-    department: string;
+    job: string;
     name: string;
 };
 

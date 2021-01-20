@@ -107,7 +107,7 @@ describe("MovieService", () => {
             const result = await service.getMovieCredits(299536);
 
             expect(result.id).toBe(299536);
-            expect(result.crew).toHaveLength(3);
+            expect(result.crew).toHaveLength(4);
             expect(result.cast).toHaveLength(4);
             expect(mockedFetch.mock.calls[0][0]).toContain("/movie/299536/credits");
             expect(mockedFetch.mock.calls[0][0]).toContain(`api_key=${API_KEY}`);

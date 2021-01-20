@@ -7,6 +7,7 @@
     "build": "npm run clean && npx tsc",
     "check": "npm run lint:fix && npm test",
     "clean": "rimraf lib",
+    "dev": "npm run watch",
     "lint": "eslint --ext ts src/ test/",
     "lint:fix": "eslint --fix --ext ts src/ test/",
     "start": "node lib/server.js",

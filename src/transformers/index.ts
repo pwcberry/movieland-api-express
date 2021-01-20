@@ -5,9 +5,9 @@ const imageUrl = process.env.IMAGE_API_URL;
 
 export const setImageUrl = (posterPath: string) => `${imageUrl}${posterPath}`;
 
-export const setGenres = async (movie: MovieGenre, context: ResolverContext) => {
+export const setGenres = async (movie: MovieGenre, context: ResolverContext): Promise<Genre[]> => {
     if ("genres" in movie) {
-        return movie.genres;
+        return movie.genres as Genre[];
     }
 
     if ("genre_ids" in movie) {
@@ -30,29 +30,29 @@ export const setGenres = async (movie: MovieGenre, context: ResolverContext) => 
 export const setMovieDirectors = (credits: MovieCreditsResult | undefined): Credit[] =>
     typeof credits !== "undefined"
         ? credits.crew
-              .filter((credit) => credit.known_for_department === "Directing")
+              .filter((credit) => credit.department === "Directing" && credit.job === "Director")
               .map((credit) => ({
                   id: credit.id,
                   name: credit.name,
-                  department: "Directing",
+                  job: "Director",
               }))
         : [];
 
 export const setMovieWriters = (credits: MovieCreditsResult | undefined): Credit[] =>
     typeof credits !== "undefined"
         ? credits.crew
-              .filter((credit) => credit.known_for_department === "Writing")
+              .filter((credit) => credit.department === "Writing" && credit.job === "Screenplay")
               .map((credit) => ({
                   id: credit.id,
                   name: credit.name,
-                  department: "Writing",
+                  job: "Writer",
               }))
         : [];
 
 export const setMovieCast = (credits: MovieCreditsResult | undefined): Actor[] =>
     typeof credits !== "undefined"
-        ? credits.crew
-              .filter((credit) => credit.known_for_department === "Acting")
+        ? credits.cast
+              .filter((credit) => credit.known_for_department === "Acting" && typeof credit.cast_id === "number")
               .map((credit) => ({
                   id: credit.id,
                   name: credit.name,

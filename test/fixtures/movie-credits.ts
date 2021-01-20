@@ -91,5 +91,18 @@ export default {
             department: "Directing",
             job: "Director",
         },
+        {
+            adult: false,
+            gender: 2,
+            id: 5552,
+            known_for_department: "Writing",
+            name: "Stephen McFeely",
+            original_name: "Stephen McFeely",
+            popularity: 2.94,
+            profile_path: "/hkn9D5L8TguJUmv8fXy5sHyMEtq.jpg",
+            credit_id: "582cf173c3a3687739000124",
+            department: "Writing",
+            job: "Screenplay",
+        },
     ],
 };
