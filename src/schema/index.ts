@@ -52,5 +52,8 @@ export default apollo.gql`
       movie(id: Int!): Movie
       search(input: MovieSearchRequest): MovieSearchResults
       genres: [Genre]
+      highestGross: MovieSearchResults
+      highestVotes: MovieSearchResults
+      mostPopular: MovieSearchResults
     }
 `;
