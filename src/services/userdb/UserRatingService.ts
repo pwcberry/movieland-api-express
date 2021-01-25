@@ -20,21 +20,21 @@ class UserRatingService {
 
     async getRating(userId: number, movieId: number): Promise<NullableNumber> {
         const db = await this.openDatabase();
-        const result = (await db.get("SELECT rating FROM user_ratings WHERE user_id=? AND movie_id=?", userId, movieId)) as UserRatingRow[];
+        const result = (await db.get("SELECT rating FROM user_rating WHERE user_id=? AND movie_id=?", userId, movieId)) as UserRatingRow[];
 
         return result.length > 0 ? result[0].rating : null;
     }
 
     async updateRating(userId: number, movieId: number, rating: number): Promise<boolean> {
         const db = await this.openDatabase();
-        const row = (await db.get("SELECT rating FROM user_ratings WHERE user_id=? AND movie_id=?", userId, movieId)) as UserRatingRow[];
+        const row = (await db.get("SELECT rating FROM user_rating WHERE user_id=? AND movie_id=?", userId, movieId)) as UserRatingRow[];
 
         if (row.length > 0) {
-            const result = await db.run("UPDATE user_ratings SET rating=? WHERE user_id=? AND movie_id=?", rating, userId, movieId);
+            const result = await db.run("UPDATE user_rating SET rating=? WHERE user_id=? AND movie_id=?", rating, userId, movieId);
             return result.changes === 1;
         }
 
-        const result = await db.run("INSERT INTO user_ratings (user_id, movie_id, rating) VALUES (?, ?, ?)", userId, movieId, rating);
+        const result = await db.run("INSERT INTO user_rating (user_id, movie_id, rating) VALUES (?, ?, ?)", userId, movieId, rating);
         return result.changes === 1;
     }
 
