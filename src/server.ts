@@ -3,6 +3,7 @@ dotenv.config();
 
 import path from "path";
 import { ApolloServer } from "apollo-server-express";
+import cookieParser from "cookie-parser";
 import express from "express";
 import typeDefs from "./schema";
 import resolvers from "./resolvers";
@@ -14,6 +15,9 @@ const apiKey = process.env.API_KEY as string;
 const databaseFilename = path.resolve(process.env.DATABASE as string);
 
 const app = express();
+app.locals.userService = new userdb.UserService(databaseFilename);
+
+app.use(cookieParser());
 
 const server = new ApolloServer({
     typeDefs,
@@ -24,7 +28,6 @@ const server = new ApolloServer({
             discoverService: new moviedb.DiscoverService(apiUrl, apiKey),
             personService: new moviedb.PersonService(apiUrl, apiKey),
             userRatingService: new userdb.UserRatingService(databaseFilename),
-            userService: new userdb.UserService(databaseFilename),
         },
     },
 });

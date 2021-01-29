@@ -29,9 +29,7 @@ INSERT INTO user (id, first_name, last_name, username, password, location)
     'peter@email.com',
     'password',
     'Melbourne'
-    );
-
-    `);
+);`);
     await db.exec(`
 CREATE TABLE user_rating (
    user_id TEXT REFERENCES user (id) ON DELETE CASCADE,
