@@ -21,9 +21,9 @@ class UserService {
      */
     public async authenticate(username: string, password: string) {
         const db = await this.openDatabase();
-        const result = (await db.get("SELECT id, first_name, username FROM user WHERE username=? AND password=?", username, password)) as UserRow[];
+        const result = (await db.get("SELECT id, first_name, username FROM user WHERE username=? AND password=?", username, password)) as UserRow;
 
-        return result.length > 1 ? result[0] : null;
+        return typeof result !== "undefined" && "id" in result ? result : null;
     }
 
     /**
@@ -31,8 +31,8 @@ class UserService {
      */
     public async authorize(user_id: string, username: string) {
         const db = await this.openDatabase();
-        const result = (await db.get("SELECT * FROM user WHERE id=? AND username=?", user_id, username)) as UserRow[];
-        return result.length === 1;
+        const result = (await db.get("SELECT * FROM user WHERE id=? AND username=?", user_id, username)) as UserRow;
+        return typeof result !== "undefined" && "id" in result;
     }
 
     private async openDatabase() {

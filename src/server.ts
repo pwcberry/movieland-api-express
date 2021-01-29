@@ -9,6 +9,7 @@ import typeDefs from "./schema";
 import resolvers from "./resolvers";
 import * as moviedb from "./services/moviedb";
 import * as userdb from "./services/userdb";
+import * as routes from "./routes";
 
 const apiUrl = process.env.API_URL as string;
 const apiKey = process.env.API_KEY as string;
@@ -18,17 +19,22 @@ const app = express();
 app.locals.userService = new userdb.UserService(databaseFilename);
 
 app.use(cookieParser());
+app.use(routes.userRouter);
 
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: {
-        services: {
-            movieService: new moviedb.MovieService(apiUrl, apiKey),
-            discoverService: new moviedb.DiscoverService(apiUrl, apiKey),
-            personService: new moviedb.PersonService(apiUrl, apiKey),
-            userRatingService: new userdb.UserRatingService(databaseFilename),
-        },
+    context: ({ req }) => {
+        // This is really simple authorization...
+        return {
+            isAuthorised: () => routes.isAuthorised(req),
+            services: {
+                movieService: new moviedb.MovieService(apiUrl, apiKey),
+                discoverService: new moviedb.DiscoverService(apiUrl, apiKey),
+                personService: new moviedb.PersonService(apiUrl, apiKey),
+                userRatingService: new userdb.UserRatingService(databaseFilename),
+            },
+        };
     },
 });
 server.applyMiddleware({ app });
