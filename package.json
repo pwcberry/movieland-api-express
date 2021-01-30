@@ -1,7 +1,7 @@
 {
   "name": "movieland-express-graphql",
   "version": "0.1.0",
-  "description": "An Express server that provides the GraphQL endpoints and web page payloads for the React movie apps.",
+  "description": "An Express server that exposes a GraphQL API for Movieland front-ends..",
   "main": "./lib/server.js",
   "scripts": {
     "build": "npm run clean && npx tsc",

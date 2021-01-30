@@ -10,7 +10,7 @@ import { UserRatingService } from "../services/userdb";
 declare type QueryRoot = unknown;
 
 export interface ResolverContext {
-    isAuthorised: () => boolean;
+    isAuthorised: () => Promise<boolean>;
     userId: string | undefined;
     services: {
         discoverService: DiscoverService;

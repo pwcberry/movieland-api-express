@@ -21,6 +21,8 @@ app.locals.userService = new userdb.UserService(databaseFilename);
 app.use(cookieParser());
 app.use(routes.userRouter);
 
+// To set cookies for GraphQL playground, open the settings in the GraphQL editor and
+// set "request.credentials" to "same-origin"
 const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -36,11 +38,6 @@ const server = new ApolloServer({
                 userRatingService: new userdb.UserRatingService(databaseFilename),
             },
         };
-    },
-    playground: {
-        settings: {
-            "request.credentials": "include",
-        },
     },
 });
 server.applyMiddleware({ app });
