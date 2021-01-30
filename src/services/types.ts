@@ -11,7 +11,7 @@ export interface MovieGenre {
     genres?: Genre[];
 }
 
-export type MovieResult = {
+export interface MovieResult {
     id: number;
     genre_ids: number[];
     backdrop_path: string;
@@ -24,7 +24,9 @@ export type MovieResult = {
     popularity: number;
     vote_average: number;
     vote_count: number;
-};
+    user_rating?: number;
+    user_rating_updated?: string;
+}
 
 export type MovieSearchResult = {
     page: number;
@@ -46,30 +48,19 @@ export type SpokenLanguage = {
     name: string;
 };
 
-export type MovieDetails = {
-    id: number;
-    backdrop_path: string;
+export interface MovieDetails extends MovieResult {
     budget: number;
     genres: Genre[];
     homepage: string;
     imdb_id: string;
-    original_language: string;
-    original_title: string;
-    overview: string;
-    popularity: number;
-    poster_path: string;
     production_companies: ProductionCompany[];
     production_countries: { name: string }[];
-    release_date: string;
     revenue: number;
     runtime: number;
     spoken_languages: SpokenLanguage[];
     status: string;
     tagline: string;
-    title: string;
-    vote_average: number;
-    vote_count: number;
-};
+}
 
 export type MovieCredit = {
     gender: number;

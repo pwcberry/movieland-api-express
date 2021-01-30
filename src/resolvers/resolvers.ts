@@ -24,6 +24,8 @@ export default {
         runtime: (m: MovieFullDetailsResult) => m.movie.runtime,
         rating: (m: MovieFullDetailsResult) => m.movie.vote_average,
         popularity: (m: MovieFullDetailsResult) => m.movie.popularity,
+        userRating: (m: MovieFullDetailsResult) => m.movie.user_rating,
+        userRatingUpdated: (m: MovieFullDetailsResult) => m.movie.user_rating_updated,
     },
 
     Genre: {

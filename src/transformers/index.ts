@@ -1,4 +1,5 @@
-/* eslint  @typescript-eslint/indent: "off" */
+/* eslint @typescript-eslint/indent: "off" */
+// Switched off lint rule to allow for preferred format of functions
 
 import { Genre, MovieCreditsResult, MovieGenre } from "../services/types";
 import { Actor, Credit, ResolverContext } from "../resolvers/types";

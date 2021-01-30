@@ -1,12 +1,10 @@
 import * as sqlite3 from "sqlite3";
 import { open } from "sqlite";
-import { NullableNumber } from "../types";
 
-type UserRatingRow = {
-    id: number;
-    user_id: number;
+export type UserRatingRow = {
     movie_id: number;
     rating: number;
+    date_updated: string;
 };
 
 class UserRatingService {
@@ -18,19 +16,38 @@ class UserRatingService {
         this.databaseDriver = sqlite3.Database;
     }
 
-    async getRating(userId: number, movieId: number): Promise<NullableNumber> {
+    async getRating(userId: string, movieId: number): Promise<UserRatingRow | null> {
         const db = await this.openDatabase();
-        const result = (await db.get("SELECT rating FROM user_rating WHERE user_id=? AND movie_id=?", userId, movieId)) as UserRatingRow[];
+        const result = (await db.get(
+            "SELECT rating, date_updated FROM user_rating WHERE user_id=? AND movie_id=?",
+            userId,
+            movieId
+        )) as UserRatingRow;
 
-        return result.length > 0 ? result[0].rating : null;
+        return typeof result !== "undefined" && "rating" in result ? result : null;
     }
 
-    async updateRating(userId: number, movieId: number, rating: number): Promise<boolean> {
+    async getRatedMovies(userId: string): Promise<UserRatingRow[]> {
         const db = await this.openDatabase();
-        const row = (await db.get("SELECT rating FROM user_rating WHERE user_id=? AND movie_id=?", userId, movieId)) as UserRatingRow[];
+        return (await db.all(
+            "SELECT movie_id, rating, date_updated FROM user_rating WHERE user_id=? ORDER BY date_updated DESC",
+            userId
+        )) as UserRatingRow[];
+    }
 
-        if (row.length > 0) {
-            const result = await db.run("UPDATE user_rating SET rating=? WHERE user_id=? AND movie_id=?", rating, userId, movieId);
+    async updateRating(userId: string, movieId: number, rating: number): Promise<boolean> {
+        const db = await this.openDatabase();
+        const row = (await db.get("SELECT rating FROM user_rating WHERE user_id=? AND movie_id=?", userId, movieId)) as UserRatingRow;
+
+        if (typeof row !== "undefined") {
+            const dateUpdated = new Date().toISOString();
+            const result = await db.run(
+                "UPDATE user_rating SET rating=?, date_updated=? WHERE user_id=? AND movie_id=?",
+                rating,
+                dateUpdated,
+                userId,
+                movieId
+            );
             return result.changes === 1;
         }
 

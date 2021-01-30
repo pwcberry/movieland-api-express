@@ -11,8 +11,8 @@ const isAuthorised = async (req: express.Request) => {
     if ("userid" in req.cookies && "username" in req.cookies) {
         const service = req.app.locals.userService as UserService;
         const id = req.cookies["userid"];
-        const username = Buffer.from(req.cookies["username"]).toString("utf8");
-        return await service.authorize(id, username);
+        const username = Buffer.from(req.cookies["username"], "base64").toString();
+        return await service.authorise(id, username);
     }
     return false;
 };

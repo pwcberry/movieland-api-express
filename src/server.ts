@@ -27,7 +27,8 @@ const server = new ApolloServer({
     context: ({ req }) => {
         // This is really simple authorization...
         return {
-            isAuthorised: () => routes.isAuthorised(req),
+            isAuthorised: async () => await routes.isAuthorised(req),
+            userId: req.cookies["userid"],
             services: {
                 movieService: new moviedb.MovieService(apiUrl, apiKey),
                 discoverService: new moviedb.DiscoverService(apiUrl, apiKey),
@@ -35,6 +36,11 @@ const server = new ApolloServer({
                 userRatingService: new userdb.UserRatingService(databaseFilename),
             },
         };
+    },
+    playground: {
+        settings: {
+            "request.credentials": "include",
+        },
     },
 });
 server.applyMiddleware({ app });

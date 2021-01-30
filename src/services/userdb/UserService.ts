@@ -27,9 +27,9 @@ class UserService {
     }
 
     /**
-     * Simple authorization
+     * Simple authorisation
      */
-    public async authorize(user_id: string, username: string) {
+    public async authorise(user_id: string, username: string) {
         const db = await this.openDatabase();
         const result = (await db.get("SELECT * FROM user WHERE id=? AND username=?", user_id, username)) as UserRow;
         return typeof result !== "undefined" && "id" in result;

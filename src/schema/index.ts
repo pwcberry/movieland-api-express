@@ -33,6 +33,8 @@ export default apollo.gql`
       runtime: Int
       rating: Float
       popularity: Float
+      userRating: Int
+      userRatingUpdated: String
     }
 
     type MovieSearchResults {
@@ -55,5 +57,10 @@ export default apollo.gql`
       highestGross: MovieSearchResults
       highestVotes: MovieSearchResults
       mostPopular: MovieSearchResults
+      userLastRatings: MovieSearchResults
+    }
+
+    type Mutation {
+      setRating(id: Int!, rating: Int!): Boolean
     }
 `;
