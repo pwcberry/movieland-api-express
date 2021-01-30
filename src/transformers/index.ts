@@ -1,3 +1,5 @@
+/* eslint  @typescript-eslint/indent: "off" */
+
 import { Genre, MovieCreditsResult, MovieGenre } from "../services/types";
 import { Actor, Credit, ResolverContext } from "../resolvers/types";
 
