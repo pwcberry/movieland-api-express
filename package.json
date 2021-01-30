@@ -1,6 +1,6 @@
 {
   "name": "movieland-express-graphql",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "An Express server that exposes a GraphQL API for Movieland front-ends..",
   "main": "./lib/server.js",
   "scripts": {
