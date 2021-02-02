@@ -3,8 +3,9 @@ dotenv.config();
 
 import path from "path";
 import { ApolloServer } from "apollo-server-express";
-import cookieParser from "cookie-parser";
 import express from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import typeDefs from "./schema";
 import resolvers from "./resolvers";
 import * as moviedb from "./services/moviedb";
@@ -18,6 +19,7 @@ const databaseFilename = path.resolve(process.env.DATABASE as string);
 const app = express();
 app.locals.userService = new userdb.UserService(databaseFilename);
 
+app.use(cors());
 app.use(cookieParser());
 app.use(routes.userRouter);
 
