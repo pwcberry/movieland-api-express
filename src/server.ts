@@ -10,6 +10,7 @@ import typeDefs from "./schema";
 import resolvers from "./resolvers";
 import * as routes from "./routes";
 import getServices from "./services";
+import * as userdb from "./services/userdb";
 
 const apiUrl = process.env.API_URL as string;
 const apiKey = process.env.API_KEY as string;
@@ -29,7 +30,7 @@ app.use(routes.userRouter);
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req }) => {
+    context: ({ req }: { req: express.Request }) => {
         return {
             // This is really simple authorization...
             isAuthorised: async () => await routes.isAuthorised(req),
