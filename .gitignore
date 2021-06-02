@@ -71,3 +71,4 @@ package-lock.json
 yarn.lock
 *.http
 *.env.json
+mocks/
