@@ -11,7 +11,7 @@ describe("DiscoverService", () => {
     let mockedFetch: jest.Mock;
 
     beforeEach(() => {
-        mockedFetch = (fetch as unknown) as jest.Mock;
+        mockedFetch = fetch as unknown as jest.Mock;
         mockedFetch.mockResolvedValue({
             status: 200,
             async json() {

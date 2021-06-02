@@ -14,7 +14,7 @@ describe("MovieService", () => {
         let mockedFetch: jest.Mock;
 
         beforeEach(() => {
-            mockedFetch = (fetch as unknown) as jest.Mock;
+            mockedFetch = fetch as unknown as jest.Mock;
 
             mockedFetch.mockResolvedValue({
                 status: 200,
@@ -72,7 +72,7 @@ describe("MovieService", () => {
         it("should return the details of a movie with a valid ID", async () => {
             expect.assertions(3);
 
-            const mockedFetch = (fetch as unknown) as jest.Mock;
+            const mockedFetch = fetch as unknown as jest.Mock;
             mockedFetch.mockResolvedValue({
                 status: 200,
                 async json() {
@@ -94,7 +94,7 @@ describe("MovieService", () => {
         it("should return the credits for a movie with a valid ID", async () => {
             expect.assertions(5);
 
-            const mockedFetch = (fetch as unknown) as jest.Mock;
+            const mockedFetch = fetch as unknown as jest.Mock;
             mockedFetch.mockResolvedValue({
                 status: 200,
                 async json() {
