@@ -1,5 +1,5 @@
-import DiscoverService from "./DiscoverService";
-import MovieService from "./MovieService";
-import PersonService from "./PersonService";
+import DiscoverServiceImpl from "./DiscoverService";
+import MovieServiceImpl from "./MovieService";
+import PersonServiceImpl from "./PersonService";
 
-export { DiscoverService, MovieService, PersonService };
+export { DiscoverServiceImpl, MovieServiceImpl, PersonServiceImpl };

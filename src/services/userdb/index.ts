@@ -1,4 +1,4 @@
-import UserService from "./UserService";
-import UserRatingService from "./UserRatingService";
+import UserServiceImpl from "./UserService";
+import UserRatingServiceImpl from "./UserRatingService";
 
-export { UserService, UserRatingService };
+export { UserServiceImpl, UserRatingServiceImpl };

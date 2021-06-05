@@ -33,7 +33,7 @@ const writeMovieFile = (dir, id, data) => {
     const rawSource = fs.readFileSync(path.resolve(process.cwd(), "mocks/movie-discover.json"), { encoding: "utf8" });
     const source = JSON.parse(rawSource);
 
-    ["highest_grossing", "highest_votes", "most_popular"].forEach(key => {
+    ["highest_grossing", "highest_votes", "most_popular"].forEach((key) => {
         const { results } = source[key];
 
         if (Array.isArray(results) && results.length > 0) {
@@ -58,5 +58,22 @@ const writeMovieFile = (dir, id, data) => {
     }
 })();
 
+(async () => {
+    const rawSource = fs.readFileSync(path.resolve(process.cwd(), "mocks/movie-search.json"), { encoding: "utf8" });
+    const source = JSON.parse(rawSource);
 
+    for (const movie of source) {
+        const { id } = movie;
+        try {
+            console.log("Obtaining movie details for:", id);
+            const movieData = await getMovieDetails(id);
+            writeMovieFile("movies", id, movieData);
 
+            console.log("Obtaining movie credits for:", id);
+            const creditData = await getMovieCredits(id);
+            writeMovieFile("movie-credits", id, creditData);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+})();

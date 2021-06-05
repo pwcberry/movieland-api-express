@@ -1,7 +1,7 @@
 import * as sqlite from "sqlite";
 import * as express from "express";
 import { isAuthorised } from "../../src/routes";
-import { UserService } from "../../src/services/userdb";
+import { UserServiceImpl } from "../../src/services/userdb";
 
 jest.mock("sqlite");
 jest.mock("sqlite3");
@@ -13,7 +13,7 @@ const mockRequest = () => {
 
     req.app = <express.Application>({
         locals: {
-            userService: new UserService("database.db"),
+            userService: new UserServiceImpl("database.db"),
         },
     } as unknown);
 

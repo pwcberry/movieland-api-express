@@ -103,3 +103,73 @@ export type MovieFullDetailsResult = {
     movie: MovieDetails;
     credits: MovieCreditsResult;
 };
+
+export interface MovieService {
+    /**
+     * Retrieve movies that match the text of a given query.
+     *
+     * @param query The text to search for in a movie title
+     * @param page The requested page of the results
+     * @param year Filter to the year movies were released
+     */
+    search(query: string, page?: number, year?: number): Promise<MovieSearchResult>;
+
+    /**
+     * Get the current set of movie genres available from the API.
+     */
+    getGenres(): Promise<Genre[]>;
+
+    /**
+     * Get the details for a movie with the specified ID.
+     */
+    getMovieDetails(id: number): Promise<MovieDetails>;
+
+    /**
+     * Get the credits for a movie with the specified ID.
+     */
+    getMovieCredits(id: number): Promise<MovieCreditsResult>;
+}
+
+export interface DiscoverService {
+    getHighestGrossingFromPreviousYear(sinceReleaseDate: string): Promise<MovieSearchResult>;
+
+    getHighestVotesFromPreviousYear(sinceReleaseDate: string): Promise<MovieSearchResult>;
+
+    getMostPopularFromPreviousYear(sinceReleaseDate: string): Promise<MovieSearchResult>;
+}
+
+export interface PersonService {
+    getPerson(id: number): Promise<PersonDetails>;
+}
+
+export type UserInfo = {
+    id: string;
+    first_name: string;
+    username: string;
+};
+
+export interface UserService {
+    /**
+     * Simple authentication
+     */
+    authenticate(username: string, password: string): Promise<UserInfo | null>;
+
+    /**
+     * Simple authorisation
+     */
+    authorise(user_id: string, username: string): Promise<boolean>;
+}
+
+export type UserRatingInfo = {
+    movie_id: number;
+    rating: number;
+    date_updated: string;
+};
+
+export interface UserRatingService {
+    getRating(userId: string, movieId: number): Promise<UserRatingInfo | null>;
+
+    getRatedMovies(userId: string): Promise<UserRatingInfo[]>;
+
+    updateRating(userId: string, movieId: number, rating: number): Promise<boolean>;
+}

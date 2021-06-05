@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
-import { PersonDetails } from "../types";
+import { PersonDetails, PersonService } from "../types";
 
-class PersonService {
+class PersonServiceImpl implements PersonService {
     private readonly apiUrl: string;
     private readonly apiKey: string;
 
@@ -16,4 +16,4 @@ class PersonService {
     }
 }
 
-export default PersonService;
+export default PersonServiceImpl;

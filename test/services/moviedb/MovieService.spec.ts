@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { MovieService } from "../../../src/services/moviedb";
+import { MovieServiceImpl } from "../../../src/services/moviedb";
 import MOVIE_SEARCH_RESULTS from "../../fixtures/search-results";
 import MOVIE_DETAILS from "../../fixtures/movie-details";
 import MOVIE_CREDITS_RESULTS from "../../fixtures/movie-credits";
@@ -30,7 +30,7 @@ describe("MovieService", () => {
 
         it("should query movie API with search text", async () => {
             expect.assertions(6);
-            const service = new MovieService(API_URL, API_KEY);
+            const service = new MovieServiceImpl(API_URL, API_KEY);
 
             const result = await service.search("avengers");
 
@@ -44,7 +44,7 @@ describe("MovieService", () => {
 
         it("should query movie API with a page number", async () => {
             expect.assertions(4);
-            const service = new MovieService(API_URL, API_KEY);
+            const service = new MovieServiceImpl(API_URL, API_KEY);
 
             const result = await service.search("avengers", 2);
 
@@ -56,7 +56,7 @@ describe("MovieService", () => {
 
         it("should query movie API with a page number and year", async () => {
             expect.assertions(5);
-            const service = new MovieService(API_URL, API_KEY);
+            const service = new MovieServiceImpl(API_URL, API_KEY);
 
             const result = await service.search("avengers", 2, 2011);
 
@@ -80,7 +80,7 @@ describe("MovieService", () => {
                 },
             });
 
-            const service = new MovieService(API_URL, API_KEY);
+            const service = new MovieServiceImpl(API_URL, API_KEY);
 
             const result = await service.getMovieDetails(299536);
 
@@ -102,7 +102,7 @@ describe("MovieService", () => {
                 },
             });
 
-            const service = new MovieService(API_URL, API_KEY);
+            const service = new MovieServiceImpl(API_URL, API_KEY);
 
             const result = await service.getMovieCredits(299536);
 

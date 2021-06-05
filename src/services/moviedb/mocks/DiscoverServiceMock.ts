@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
-import { MovieSearchResult } from "../../types";
+import { MovieSearchResult, DiscoverService } from "../../types";
 
-export default class DiscoverServiceMock {
+export default class DiscoverServiceMock implements DiscoverService {
     constructor(private mockPath: string) {}
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

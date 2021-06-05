@@ -1,8 +1,8 @@
 import querystring from "querystring";
 import fetch from "node-fetch";
-import { MovieSearchResult } from "../types";
+import { DiscoverService, MovieSearchResult } from "../types";
 
-class DiscoverService {
+class DiscoverServiceImpl implements DiscoverService {
     private readonly apiUrl: string;
     private readonly apiKey: string;
 
@@ -44,4 +44,4 @@ class DiscoverService {
     }
 }
 
-export default DiscoverService;
+export default DiscoverServiceImpl;

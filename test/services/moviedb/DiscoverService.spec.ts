@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { DiscoverService } from "../../../src/services/moviedb";
+import { DiscoverServiceImpl } from "../../../src/services/moviedb";
 import DISCOVER_RESULTS from "../../fixtures/discovery-results";
 
 jest.mock("node-fetch");
@@ -28,7 +28,7 @@ describe("DiscoverService", () => {
         it("should call the API with the sort by revenue from the previous year", async () => {
             expect.assertions(4);
 
-            const service = new DiscoverService(API_URL, API_KEY);
+            const service = new DiscoverServiceImpl(API_URL, API_KEY);
             const result = await service.getHighestGrossingFromPreviousYear("2020-03-01");
 
             expect(result.page).toBe(1);
@@ -42,7 +42,7 @@ describe("DiscoverService", () => {
         it("should call the API with the sort by highest votes from the previous year", async () => {
             expect.assertions(4);
 
-            const service = new DiscoverService(API_URL, API_KEY);
+            const service = new DiscoverServiceImpl(API_URL, API_KEY);
             const result = await service.getHighestVotesFromPreviousYear("2020-03-01");
 
             expect(result.page).toBe(1);
@@ -56,7 +56,7 @@ describe("DiscoverService", () => {
         it("should call the API with the sort by highest popular score from the previous year", async () => {
             expect.assertions(4);
 
-            const service = new DiscoverService(API_URL, API_KEY);
+            const service = new DiscoverServiceImpl(API_URL, API_KEY);
             const result = await service.getMostPopularFromPreviousYear("2020-03-01");
 
             expect(result.page).toBe(1);
