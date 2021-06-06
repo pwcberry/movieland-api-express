@@ -1,6 +1,6 @@
-import { GraphQLSchema } from "graphql";
+import * as apollo from "apollo-server-express";
 
-const s = `
+export default apollo.gql`
     type Credit {
       id: ID!
       name: String!
@@ -64,5 +64,3 @@ const s = `
       setRating(id: Int!, rating: Int!): Boolean
     }
 `;
-
-export default new GraphQLSchema({});
