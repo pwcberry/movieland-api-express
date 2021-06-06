@@ -10,7 +10,7 @@ import * as userdb from "./services/userdb";
 
 const apiUrl = process.env.API_URL as string;
 const apiKey = process.env.API_KEY as string;
-const useMocks = process.env.USE_MOCK === "true";
+const useMocks = process.env.USE_MOCKS === "true";
 const databasePath = path.resolve(process.env.DATABASE as string);
 const mockPath = path.resolve(process.cwd(), "./mocks");
 
