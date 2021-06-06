@@ -1,10 +1,10 @@
 import querystring from "querystring";
 import fetch from "node-fetch";
-import { Genre, MovieCreditsResult, MovieDetails, MovieSearchResult } from "../types";
+import { Genre, MovieCreditsResult, MovieDetails, MovieSearchResult, MovieService } from "../types";
 
 let genreCache = new Set<Genre>();
 
-class MovieService {
+class MovieServiceImpl implements MovieService {
     private readonly apiUrl: string;
     private readonly apiKey: string;
 
@@ -75,4 +75,4 @@ class MovieService {
     }
 }
 
-export default MovieService;
+export default MovieServiceImpl;

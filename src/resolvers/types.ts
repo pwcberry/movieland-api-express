@@ -1,7 +1,5 @@
-import { IResolvers, IResolverObject } from "apollo-server-express";
-import { MovieService, DiscoverService, PersonService } from "../services/moviedb";
-import { Genre, MovieFullDetailsResult, MovieSearchResult } from "../services/types";
-import { UserRatingService } from "../services/userdb";
+import type { IResolverObject, IResolvers } from "apollo-server-express";
+import { DiscoverService, Genre, MovieFullDetailsResult, MovieSearchResult, MovieService, PersonService, UserRatingService } from "../services/types";
 
 // Define the type for the resolver "root" or "source".
 // For these top-level resolvers, the "root" is defined in the configuration passed into the
@@ -9,15 +7,17 @@ import { UserRatingService } from "../services/userdb";
 // If "rootValue" needs a definition, this type alias will have to be redefined.
 declare type QueryRoot = unknown;
 
+export interface ResolverServices {
+    discoverService: DiscoverService;
+    movieService: MovieService;
+    personService: PersonService;
+    userRatingService: UserRatingService;
+}
+
 export interface ResolverContext {
     isAuthorised: () => Promise<boolean>;
     userId: string | undefined;
-    services: {
-        discoverService: DiscoverService;
-        movieService: MovieService;
-        personService: PersonService;
-        userRatingService: UserRatingService;
-    };
+    services: ResolverServices;
 }
 
 export type MovieSearchInput = {

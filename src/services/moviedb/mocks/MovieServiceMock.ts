@@ -1,9 +1,20 @@
 import fs from "fs";
 import path from "path";
-import { Genre, MovieCreditsResult, MovieDetails } from "../../types";
+import { Genre, MovieCreditsResult, MovieDetails, MovieResult, MovieSearchResult, MovieService } from "../../types";
 
-export default class MovieServiceMock {
+export default class MovieServiceMock implements MovieService {
     constructor(private mockPath: string) {}
+
+    async search(_: string, page = 1, year?: number): Promise<MovieSearchResult> {
+        const searchResults = await this.getDataFromFile<MovieResult[]>("movie-genres.json");
+
+        return Promise.resolve({
+            page,
+            total_pages: page,
+            total_results: searchResults.length,
+            results: year ? searchResults.filter((m) => m.release_date.includes(year.toString())) : searchResults,
+        });
+    }
 
     async getGenres(): Promise<Genre[]> {
         const genres = this.getDataFromFile<Genre[]>("movie-genres.json");

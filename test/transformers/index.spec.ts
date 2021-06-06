@@ -1,28 +1,38 @@
 import { setGenres, setMovieCast, setMovieDirectors, setMovieWriters } from "../../src/transformers";
 import { ResolverContext } from "../../src/resolvers/types";
-import { DiscoverService, MovieService, PersonService } from "../../src/services/moviedb";
+import { DiscoverServiceImpl, MovieServiceImpl, PersonServiceImpl } from "../../src/services/moviedb";
 import GENRES from "../fixtures/movie-genres";
 import MOVIE_CREDITS from "../fixtures/movie-credits";
 import { Genre } from "../../src/services/types";
+import * as userdb from "../../src/services/userdb";
 
 const API_URL = "https://api";
 const API_KEY = "a1b2c3d4e5f6";
 
 jest.mock("../../src/services/moviedb", () => {
     return {
-        DiscoverService: jest.fn().mockImplementation(),
-        PersonService: jest.fn().mockImplementation(),
-        MovieService: jest.fn().mockImplementation(),
+        DiscoverServiceImpl: jest.fn().mockImplementation(),
+        PersonServiceImpl: jest.fn().mockImplementation(),
+        MovieServiceImpl: jest.fn().mockImplementation(),
+    };
+});
+
+jest.mock("../../src/services/userdb", () => {
+    return {
+        UserRatingServiceImpl: jest.fn().mockImplementation(),
     };
 });
 
 describe("transformers", () => {
     describe("setGenres", () => {
         const mockContext: ResolverContext = {
+            isAuthorised: jest.fn(),
+            userId: "abcdef",
             services: {
-                discoverService: new DiscoverService(API_URL, API_KEY),
-                movieService: new MovieService(API_URL, API_KEY),
-                personService: new PersonService(API_URL, API_KEY),
+                discoverService: new DiscoverServiceImpl(API_URL, API_KEY),
+                movieService: new MovieServiceImpl(API_URL, API_KEY),
+                personService: new PersonServiceImpl(API_URL, API_KEY),
+                userRatingService: new userdb.UserRatingServiceImpl("fake.db"),
             },
         };
 

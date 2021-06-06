@@ -1,8 +1,8 @@
 import * as sqlite from "sqlite";
-import { UserRatingService } from "../../src/services/userdb";
+import { UserRatingServiceImpl } from "../../src/services/userdb";
 import { userLastRatings } from "../../src/resolvers/query";
 import { ResolverContext } from "../../src/resolvers/types";
-import { DiscoverService, MovieService, PersonService } from "../../src/services/moviedb";
+import { DiscoverServiceImpl, MovieServiceImpl, PersonServiceImpl } from "../../src/services/moviedb";
 
 jest.mock("sqlite");
 jest.mock("sqlite3");
@@ -12,12 +12,12 @@ const mockContext = (authorised: boolean, userId: string): ResolverContext => {
         isAuthorised: async () => authorised,
         userId,
         services: {
-            discoverService: <DiscoverService>(jest.fn() as unknown),
-            movieService: <MovieService>({
+            discoverService: <DiscoverServiceImpl>(jest.fn() as unknown),
+            movieService: <MovieServiceImpl>({
                 getMovieDetails: jest.fn().mockResolvedValue({}),
             } as unknown),
-            personService: <PersonService>(jest.fn() as unknown),
-            userRatingService: new UserRatingService("database.db"),
+            personService: <PersonServiceImpl>(jest.fn() as unknown),
+            userRatingService: new UserRatingServiceImpl("database.db"),
         },
     };
 };

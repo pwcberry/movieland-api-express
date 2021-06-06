@@ -1,13 +1,8 @@
 import * as sqlite3 from "sqlite3";
 import { open } from "sqlite";
+import { UserInfo, UserService } from "../types";
 
-type UserRow = {
-    id: string;
-    first_name: string;
-    username: string;
-};
-
-class UserService {
+class UserServiceImpl implements UserService {
     private readonly databaseFilename: string;
     private readonly databaseDriver;
 
@@ -19,9 +14,9 @@ class UserService {
     /**
      * Simple authentication
      */
-    public async authenticate(username: string, password: string) {
+    async authenticate(username: string, password: string): Promise<UserInfo | null> {
         const db = await this.openDatabase();
-        const result = (await db.get("SELECT id, first_name, username FROM user WHERE username=? AND password=?", username, password)) as UserRow;
+        const result = (await db.get("SELECT id, first_name, username FROM user WHERE username=? AND password=?", username, password)) as UserInfo;
 
         return typeof result !== "undefined" && "id" in result ? result : null;
     }
@@ -29,9 +24,9 @@ class UserService {
     /**
      * Simple authorisation
      */
-    public async authorise(user_id: string, username: string) {
+    async authorise(user_id: string, username: string) {
         const db = await this.openDatabase();
-        const result = (await db.get("SELECT * FROM user WHERE id=? AND username=?", user_id, username)) as UserRow;
+        const result = (await db.get("SELECT * FROM user WHERE id=? AND username=?", user_id, username)) as UserInfo;
         return typeof result !== "undefined" && "id" in result;
     }
 
@@ -43,4 +38,4 @@ class UserService {
     }
 }
 
-export default UserService;
+export default UserServiceImpl;

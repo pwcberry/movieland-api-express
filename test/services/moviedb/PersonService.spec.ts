@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { PersonService } from "../../../src/services/moviedb";
+import { PersonServiceImpl } from "../../../src/services/moviedb";
 import PERSON_DETAILS from "../../fixtures/person-details";
 
 jest.mock("node-fetch");
@@ -28,7 +28,7 @@ describe("PersonService", () => {
     it("should query API for person details", async () => {
         expect.assertions(4);
         const PERSON_ID = 543261;
-        const service = new PersonService(API_URL, API_KEY);
+        const service = new PersonServiceImpl(API_URL, API_KEY);
 
         const result = await service.getPerson(PERSON_ID);
 

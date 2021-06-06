@@ -48,7 +48,7 @@ npm start
 
 ## Development
 
-Run eslint:
+Run the linter:
 
 ```bash
 npm run lint
